@@ -30,6 +30,18 @@ app.get("/api/players", function(req, res) {
   res.send(players);
 });
 
+io.on('connection', function(socket) {
+  console.log('new connection');
+
+  socket.on('add-customer', function(customer) {
+    io.emit('notification', {
+      message: 'new customer',
+      customer: customer
+    });
+  });
+});
+
+
 // //socket.ioに接続された時に動く処理
 // io.on('connection', function(socket) {
 //   //接続時に振られた一意のIDをコンソールに表示

@@ -17,6 +17,10 @@ angular.module('myApp', [
       templateUrl: 'views/page.html',
       controller: 'PageCtrl'
     })
+    .when('/socket', {
+      templateUrl: 'views/socket.html',
+      controller: 'SocketCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });

@@ -1,0 +1,24 @@
+<div>
+	<ul>
+		<li>
+			<a href="/">index</a>
+		</li>
+		<li>
+			<a href="/#/page">page</a>
+		</li>
+        <li>
+            <a href="/#/socket">socket</a>
+        </li>
+	</ul>
+</div>
+<div ng-controller="SocketCtrl">
+  <label>Please enter your name: </label>
+  <input ng-model="currentCustomer.name"/>
+  <button ng-click="join()">Join</button>
+  <br/>
+
+  <h1>New Customers: </h1>
+  <ul>
+    <li ng-repeat="customer in newCustomers">{{customer.name}}</li>
+  </ul>
+</div>
