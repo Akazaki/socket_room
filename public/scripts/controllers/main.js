@@ -2,43 +2,42 @@
 
 var app = angular.module('myApp');
 
-angular.module('myApp')
-    .controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
-        var $uri ='/api/players';
-        $scope.doSearch = function() {
+app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
+  var $uri ='/api/players';
+  $scope.doSearch = function() {
 
-            $http({
-                method : 'GET',
-                url : $uri
-            }).success(function(data, status, headers, config) {
-                $scope.results = data;
-            }).error(function(data, status, headers, config) {
-                console.log('error');
-            });
-        };
-    }])
-    // page
-    .controller('PageCtrl', ['$scope', '$http', function ($scope, $http) {
+    $http({
+        method : 'GET',
+        url : $uri
+    }).success(function(data, status, headers, config) {
+        $scope.results = data;
+    }).error(function(data, status, headers, config) {
+        console.log('error');
+    });
+  };
+}]);
 
-        var $uri ='/api/players';
+// page
+app.controller('PageCtrl', ['$scope', '$http', function ($scope, $http) {
+    var $uri ='/api/players';
 
-        srearch();
+    srearch();
 
-        function srearch() {
-           $http({
-               method : 'GET',
-               url : $uri
-           }).success(function(data, status, headers, config) {
-               $scope.results = data;
-           }).error(function(data, status, headers, config) {
-               console.log('error');
-           });
-       };
+    function srearch() {
+       $http({
+           method : 'GET',
+           url : $uri
+       }).success(function(data, status, headers, config) {
+           $scope.results = data;
+       }).error(function(data, status, headers, config) {
+           console.log('error');
+       });
+   };
 
-      $scope.doSearch = function() {
-        $scope.results = '';
-      }
-    }]);
+  $scope.doSearch = function() {
+    $scope.results = '';
+  }
+}]);
 
 app.factory('socket', ['$rootScope', function($rootScope) {
   var socket = io.connect();
@@ -56,6 +55,7 @@ app.factory('socket', ['$rootScope', function($rootScope) {
 app.controller('SocketCtrl', function($scope, socket) {
   $scope.newCustomers = [];
   $scope.currentCustomer = {};
+  $scope.roomid = '';
 
   $scope.join = function() {
     socket.emit('add-customer', $scope.currentCustomer);
@@ -64,6 +64,22 @@ app.controller('SocketCtrl', function($scope, socket) {
   socket.on('notification', function(data) {
     $scope.$apply(function () {
       $scope.newCustomers.push(data.customer);
+    });
+  });
+});
+
+app.controller('SinkCtrl', function($scope, socket) {
+  $scope.roomid = 1111;
+  $scope.room = [];
+  $scope.newRoom = [];
+
+  $scope.sink = function() {
+    socket.emit('add-sink', $scope.room);
+  };
+
+  socket.on('notification', function(data) {
+    $scope.$apply(function () {
+      $scope.newRoom = data.roomid;
     });
   });
 });

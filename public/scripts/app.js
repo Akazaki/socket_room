@@ -7,7 +7,9 @@ angular.module('myApp', [
   'ngRoute',
   'ui.bootstrap'
 ])
-.config(['$routeProvider', function ($routeProvider) {
+.config(["$routeProvider", '$locationProvider', function($routeProvider,$locationProvider) {
+  $locationProvider.html5Mode(true);
+//.config(['$routeProvider', function ($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
@@ -20,6 +22,10 @@ angular.module('myApp', [
     .when('/socket', {
       templateUrl: 'views/socket.html',
       controller: 'SocketCtrl'
+    })
+    .when('/sink', {
+      templateUrl: 'views/sink.html',
+      controller: 'SinkCtrl'
     })
     .otherwise({
       redirectTo: '/'

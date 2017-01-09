@@ -7,8 +7,11 @@
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>SinglePageApp-MEAN</title>
     <meta name="description" content="">
+    <base href="/">
+    <!-- クローラにAJAXアプリをインデックス -->
+    <meta name="fragment" content="!" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
@@ -20,6 +23,22 @@
     <!-- endbuild -->
 </head>
 <body ng-app="myApp">
+<div>
+    <ul>
+        <li>
+            <a href="/">index</a>
+        </li>
+        <li>
+            <a href="/#/page">page</a>
+        </li>
+        <li>
+            <a href="/#/socket">socket</a>
+        </li>
+        <li>
+            <a href="/#/sink">sink</a>
+        </li>
+    </ul>
+</div>
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->

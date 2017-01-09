@@ -1,0 +1,11 @@
+
+<div ng-controller="SocketCtrl">
+  <label>ルームID入力</label>
+  <input ng-model="room.id"/>
+  <button class="btn btn-primary" ng-click="sink()">Join</button>
+  <br/>
+
+  <ul>
+    <li ng-repeat="room in newRoom">{{room.id}}</li>
+  </ul>
+</div>

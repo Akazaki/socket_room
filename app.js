@@ -31,16 +31,24 @@ app.get("/api/players", function(req, res) {
 });
 
 io.on('connection', function(socket) {
-  console.log('new connection');
+    var roomid = Math.floor( Math.random() * 9999);
+    //var roomid = 11211;
 
-  socket.on('add-customer', function(customer) {
-    io.emit('notification', {
-      message: 'new customer',
-      customer: customer
+    socket.on('add-customer', function(customer) {
+        io.to(roomid).emit('notification', {
+            message: 'new customer',
+            customer: customer
+        });
     });
-  });
-});
 
+    socket.on('add-sink', function(data) {
+        //socket.join(data);
+        console.log(data);
+        io.to(data).emit('notification', {
+            room: data
+        });
+    });
+});
 
 // //socket.ioに接続された時に動く処理
 // io.on('connection', function(socket) {
