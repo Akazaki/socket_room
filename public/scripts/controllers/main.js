@@ -55,7 +55,7 @@ app.factory('socket', ['$rootScope', function($rootScope) {
 app.controller('SocketCtrl', function($scope, socket) {
   $scope.newCustomers = [];
   $scope.currentCustomer = {};
-  $scope.roomid = '';
+  //$scope.roomid = '';
 
   $scope.join = function() {
     socket.emit('add-customer', $scope.currentCustomer);
@@ -74,12 +74,12 @@ app.controller('SinkCtrl', function($scope, socket) {
   $scope.newRoom = [];
 
   $scope.sink = function() {
-    socket.emit('add-sink', $scope.room);
+    socket.emit('add-sink', $scope.roomid);
   };
 
   socket.on('notification', function(data) {
     $scope.$apply(function () {
-      $scope.newRoom = data.roomid;
+      $scope.roomid = data.roomid;
     });
   });
 });
