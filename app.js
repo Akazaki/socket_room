@@ -43,8 +43,8 @@ io.on('connection', function(socket) {
 
     socket.on('add-sink', function(data) {
         //socket.join(data);
-        console.log(data);
-        io.to(data).emit('notification', {
+        console.log(data.id);
+        io.emit('rtn', {
             room: data
         });
     });
