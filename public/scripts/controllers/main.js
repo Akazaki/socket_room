@@ -53,16 +53,17 @@ app.factory('socket', ['$rootScope', function($rootScope) {
 }]);
 
 app.controller('SocketCtrl', function($scope, socket) {
-  $scope.newCustomers = [];
-  $scope.currentCustomer = {};
+  $scope.newRoomid = '';
+  $scope.message;
 
   $scope.join = function() {
-    socket.emit('add-customer', $scope.currentCustomer);
+    socket.emit('add-publish');
   };
 
-  socket.on('notification', function(data) {
+  socket.on('rtn', function(data) {
     $scope.$apply(function () {
-      $scope.newCustomers.push(data.customer);
+      $scope.newRoomid = data.roomid;
+      $scope.message = data.message;
     });
   });
 });
@@ -70,16 +71,18 @@ app.controller('SocketCtrl', function($scope, socket) {
 app.controller('SinkCtrl', function($scope, socket) {
   $scope.currentRoomid = {};
   $scope.room = [];
-  $scope.newRoomid = '';
+  $scope.roomid;
+  $scope.message;
 
   $scope.sink = function() {
     socket.emit('add-sink', $scope.currentRoomid);
   };
 
   socket.on('rtn', function(data) {
+    console.log(data.room.id);
     $scope.$apply(function () {
-      $scope.newRoomid = data.id;
+      $scope.roomid = data.room.id;
+      $scope.message = data.message;
     });
-  	console.log($scope.newRoomid);
   });
 });

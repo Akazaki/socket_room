@@ -1,12 +1,9 @@
 
 <div ng-controller="SocketCtrl">
-  <label>Please enter your name: </label>
-  <input ng-model="currentCustomer.name"/>
+  <label>ルームキー発行</label>
   <button class="btn btn-primary" ng-click="join()">Join</button>
   <br/>
 
-	<p ng-bind='roomid'>{{roomid}}</p>
-  <ul>
-    <li ng-repeat="customer in newCustomers">{{customer.name}}</li>
-  </ul>
+	<p ng-bind='newRoomid'>{{newRoomid}}</p>
+	<p ng-bind="message">メッセージ：{{message}}</p>
 </div>

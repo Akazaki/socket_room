@@ -6,9 +6,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var POST = 3000;
 
-//app.set('views', __dirname + '/views');
-//app.set('view engine', 'ejs');
-
 app.use(express.static('./public'));
 
 var players = [
@@ -31,21 +28,28 @@ app.get("/api/players", function(req, res) {
 });
 
 io.on('connection', function(socket) {
-    //var roomid = Math.floor( Math.random() * 9999);
-    //var roomid = 11211;
+    socket.join('');
 
-    socket.on('add-customer', function(customer) {
-        io.to(roomid).emit('notification', {
-            message: 'new customer',
-            customer: customer
+    socket.on('add-publish', function() {
+        //ランダムでルームキー発行 
+        var roomid = Math.floor( Math.random() * 9999);
+        //ルーム入室
+        socket.join(roomid);
+
+        io.emit('rtn', {
+            roomid: roomid,
+            message: 'publish!!'
         });
     });
 
     socket.on('add-sink', function(data) {
-        //socket.join(data);
+        var roomid = data.id
         console.log(data.id);
-        io.emit('rtn', {
-            room: data
+        socket.join(data.id);
+
+        io.to(data.id).emit('rtn', {
+            room: data,
+            message: 'join!!'
         });
     });
 });
